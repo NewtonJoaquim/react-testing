@@ -1,10 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 
+import * as actions from 'actions';
 interface ICommentBoxState{
     comment: string
 }
 
-export default class CommentBox extends React.Component<any, ICommentBoxState> {
+class CommentBox extends React.Component<any, ICommentBoxState> {
     /**
      * NOTE It is also possible to use state without a constructor method. But doing so we no longe have access to props from parent components
      * Like this:
@@ -29,7 +31,7 @@ export default class CommentBox extends React.Component<any, ICommentBoxState> {
     handleCommentSubmit = (event:any) =>{
         event.preventDefault();
 
-        //TODO: Call an action creator and save the comment
+        this.props.saveComment(this.state.comment);
         this.setState({comment:''});
     }
 
@@ -45,3 +47,6 @@ export default class CommentBox extends React.Component<any, ICommentBoxState> {
         );
     }
 };
+
+
+export default connect(null, actions)(CommentBox);
