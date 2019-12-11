@@ -1,8 +1,14 @@
 import React from "react";
 import {shallow} from "enzyme";
-import App from "../App";
-import CommentBox from "../CommentBox";
-import CommentList from "../CommentList";
+import App from "components/App";
+import CommentBox from "components/CommentBox";
+import CommentList from "components/CommentList";
+
+/**
+ * In this test suite for the App component, we must make sure that it:
+ * 1: Has a CommentBox component inside of it
+ * 2: Has a CommentList component inside of it
+ */
 
 let wrapped:any;
 
