@@ -30,36 +30,32 @@ it('has a text area and a button', () => {
       */
 });
 
-it('let users enter input into the text area', () => {
-    //For this test we will find the textarea element  
-    wrapped.find('textarea')
-        .simulate('change',                     //simulate a change event 
-        { target:{value: 'new comment'} } );    //provide a fake event object
-    
-    //force the component to update
-    wrapped.update();
-    
-    //and then assert that the textarea value has changed
-    expect(wrapped.find('textarea').prop('value')).toEqual('new comment');
-});
+//NOTE we use the describe function to group up some tests inside a test suite, so we can add beforeEach and afterEach that are private to the group
+describe('text area input related tests', () =>{
+    beforeEach(() => {
+        //For this test we will find the textarea element  
+        wrapped.find('textarea')
+            .simulate('change',                     //simulate a change event 
+            { target:{value: 'new comment'} } );    //provide a fake event object
+        
+        //force the component to update
+        wrapped.update();
+    })
 
-it('clears the text area when the input is submitted', () => {
-    //For this test we will find the textarea element  
-    wrapped.find('textarea')
-        .simulate('change',                     //simulate a change event 
-        { target:{value: 'new comment'} } );    //provide a fake event object
-    
-    //force the component to update
-    wrapped.update();
+    it('let users enter input into the text area', () => {
+        //and then assert that the textarea value has changed
+        expect(wrapped.find('textarea').prop('value')).toEqual('new comment');
+    });
 
-    //check if the text area value really changed
-    expect(wrapped.find('textarea').prop('value')).toEqual('new comment');
+    it('clears the text area when the input is submitted', () => {
+        //check if the text area value really changed
+        expect(wrapped.find('textarea').prop('value')).toEqual('new comment');
 
-    //simulate a form submit event
-    wrapped.find('form').simulate('submit');
-    wrapped.update();
+        //simulate a form submit event
+        wrapped.find('form').simulate('submit');
+        wrapped.update();
 
-    //and then assert that the textarea value has been cleared after the submit
-    expect(wrapped.find('textarea').prop('value')).toHaveLength(0);
-});
-
+        //and then assert that the textarea value has been cleared after the submit
+        expect(wrapped.find('textarea').prop('value')).toHaveLength(0);
+    });
+})
